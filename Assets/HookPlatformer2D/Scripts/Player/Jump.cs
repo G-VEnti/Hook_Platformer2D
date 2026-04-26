@@ -9,12 +9,14 @@ public class Jump : MonoBehaviour
     Animator animator;
     public bool isGoingUp;
     public bool isGoingDown;
+    AudioSource audioSource;
 
     void Start()
     {
         playerRB = GetComponent<Rigidbody2D>();
         groundDetectorScript = GetComponent<GroundDetector>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         inputs = new InputSystem_Actions();
         inputs.Enable();
     }
@@ -25,7 +27,7 @@ public class Jump : MonoBehaviour
         if (inputs.Player.Jump.WasPressedThisFrame() && groundDetectorScript.isGrounded)
         {
             playerRB.AddForce(Vector2.up * force, ForceMode2D.Impulse);
-            animator.SetBool("isJumping", true);
+            audioSource.Play();
         }
 
         isGoingUp = (!groundDetectorScript.isGrounded && playerRB.linearVelocityY > 0);
