@@ -4,6 +4,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public bool keyObtained;
+    public AudioSource audioSource;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -21,6 +22,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 }

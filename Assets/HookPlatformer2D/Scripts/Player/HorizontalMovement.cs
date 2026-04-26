@@ -1,6 +1,6 @@
-using Unity.VisualScripting;
-using UnityEditor.Tilemaps;
+
 using UnityEngine;
+
 public class HorizontalMovement : MonoBehaviour
 {
     InputSystem_Actions inputs;
@@ -10,9 +10,7 @@ public class HorizontalMovement : MonoBehaviour
 
     private Animator animator;
     private SpriteRenderer playerSprite;
-    //private GroundDetector groundDetector;
-    //private Vector2 platformLastPosition;
-    //private Vector2 platformDelta;
+    private GroundDetector groundDetector;    
     private Collider2D currentChest;
 
     public GameObject currentCheckPoint;
@@ -22,7 +20,7 @@ public class HorizontalMovement : MonoBehaviour
         playerRB = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         playerSprite = GetComponent<SpriteRenderer>();
-        //groundDetector = GetComponent<GroundDetector>();
+        groundDetector = GetComponent<GroundDetector>();
         inputs = new InputSystem_Actions();
         inputs.Enable();
     }
@@ -54,12 +52,12 @@ public class HorizontalMovement : MonoBehaviour
         if (transform.position.y < bottomLimit) transform.position = currentCheckPoint.transform.position;
 
 
-        //if (groundDetector.rayHit.collider.gameObject.CompareTag("MobilePlatform"))
-        //{
-        //    platformDelta = (Vector2)groundDetector.rayHit.collider.transform.position - platformLastPosition;
-        //    platformLastPosition = groundDetector.rayHit.collider.transform.position;
-        //}
-        //else platformDelta = Vector2.zero;
+
+        if (groundDetector.rayHit.collider != null && groundDetector.rayHit.collider.gameObject.CompareTag("MobilePlatform"))
+        {
+            transform.parent = groundDetector.rayHit.collider.gameObject.transform;
+        }
+        else transform.parent = null;
 
         playerRB.position += dir * speed * Time.fixedDeltaTime;
 
