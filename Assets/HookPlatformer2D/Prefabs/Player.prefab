@@ -171,7 +171,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  bottomLimit: -8
   playerRB: {fileID: 0}
+  currentCheckPoint: {fileID: 0}
 --- !u!114 &5915719743630059096
 MonoBehaviour:
   m_ObjectHideFlags: 0

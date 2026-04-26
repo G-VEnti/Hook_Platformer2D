@@ -5,21 +5,24 @@ public class HorizontalMovement : MonoBehaviour
 {
     InputSystem_Actions inputs;
     public float speed;
+    public float bottomLimit;
     public Rigidbody2D playerRB;
 
     private Animator animator;
     private SpriteRenderer playerSprite;
-    private GroundDetector groundDetector;
-    private Vector2 platformLastPosition;
-    private Vector2 platformDelta;
+    //private GroundDetector groundDetector;
+    //private Vector2 platformLastPosition;
+    //private Vector2 platformDelta;
     private Collider2D currentChest;
+
+    public GameObject currentCheckPoint;
 
     void Start()
     {
         playerRB = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         playerSprite = GetComponent<SpriteRenderer>();
-        groundDetector = GetComponent<GroundDetector>();
+        //groundDetector = GetComponent<GroundDetector>();
         inputs = new InputSystem_Actions();
         inputs.Enable();
     }
@@ -48,7 +51,7 @@ public class HorizontalMovement : MonoBehaviour
         if (dir.x < 0) playerSprite.flipX = true;
         else if (dir.x > 0) playerSprite.flipX = false;
 
-        
+        if (transform.position.y < bottomLimit) transform.position = currentCheckPoint.transform.position;
 
 
         //if (groundDetector.rayHit.collider.gameObject.CompareTag("MobilePlatform"))
