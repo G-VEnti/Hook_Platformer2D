@@ -8,13 +8,14 @@ public class GroundDetector : MonoBehaviour
     //public float circleCastRadius;
 
     public LayerMask mask;
+    public RaycastHit2D rayHit;
 
     // Update is called once per frame
     void Update()
     {
         Debug.DrawRay(transform.position, Vector3.down * rayDistance, Color.red);
 
-        RaycastHit2D rayHit = Physics2D.Raycast(transform.position, Vector3.down, rayDistance, mask);
+        rayHit = Physics2D.Raycast(transform.position, Vector3.down, rayDistance, mask);
 
         //RaycastHit2D circleHit = Physics2D.CircleCast(transform.position, circleCastRadius, Vector3.down, rayDistance, mask);
 
