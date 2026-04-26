@@ -2,18 +2,19 @@ using UnityEngine;
 
 public class Jump : MonoBehaviour
 {
-    InputSystem_Actions inputs;
-    
+    InputSystem_Actions inputs;    
     public float force;
-
     public Rigidbody2D playerRB;
-
     GroundDetector groundDetectorScript;
+    Animator animator;
+    public bool isGoingUp;
+    public bool isGoingDown;
+
     void Start()
     {
         playerRB = GetComponent<Rigidbody2D>();
         groundDetectorScript = GetComponent<GroundDetector>();
-
+        animator = GetComponent<Animator>();
         inputs = new InputSystem_Actions();
         inputs.Enable();
     }
@@ -24,6 +25,12 @@ public class Jump : MonoBehaviour
         if (inputs.Player.Jump.WasPressedThisFrame() && groundDetectorScript.isGrounded)
         {
             playerRB.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+            animator.SetBool("isJumping", true);
         }
+
+        isGoingUp = (!groundDetectorScript.isGrounded && playerRB.linearVelocityY > 0);
+        isGoingDown = (!groundDetectorScript.isGrounded && playerRB.linearVelocityY < 0);
+        animator.SetBool("isGoingUp", isGoingUp);
+        animator.SetBool("isGoingDown", isGoingDown);
     }
 }
